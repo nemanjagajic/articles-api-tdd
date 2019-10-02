@@ -6,10 +6,8 @@ RSpec.describe 'articles API', type: :request do
     before { get '/articles' }
 
     it 'returns articles' do
-      parsed_response = JSON.parse(response.body)
-      expect(parsed_response).not_to be_empty
-      puts(parsed_response)
-      expect(parsed_response.size).to eq(10)
+      expect(json).not_to be_empty
+      expect(json.size).to eq(10)
     end
 
     it 'returns status code 200' do
@@ -22,9 +20,8 @@ RSpec.describe 'articles API', type: :request do
 
     context 'when the record exists' do
       it 'returns the article' do
-        parsed_response = JSON.parse(response.body)
-        expect(parsed_response).not_to be_empty
-        expect(parsed_response['id']).to eq(article_id)
+        expect(json).not_to be_empty
+        expect(json['id']).to eq(article_id)
       end
 
       it 'returns status code 200' do
@@ -52,9 +49,8 @@ RSpec.describe 'articles API', type: :request do
       before { post '/articles', params: valid_attributes }
 
       it 'creates a article' do
-        parsed_response = JSON.parse(response.body)
-        expect(parsed_response['title']).to eq('Learn Elm')
-        expect(parsed_response['content']).to eq('lorem')
+        expect(json['title']).to eq('Learn Elm')
+        expect(json['content']).to eq('lorem')
       end
 
       it 'returns status code 201' do
